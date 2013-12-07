@@ -139,7 +139,9 @@
 
 		function displayPublishPanel(&$wrapper, $data=NULL, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL)
 		{
-			if (Administration::instance()->Page) {
+			$callback = Administration::instance()->getPageCallback();
+			// these styles and js files do no need to go on the entry landing/listing page
+			if (Administration::instance()->Page && $callback['context']['page'] != 'index') {
 				Administration::instance()->Page->addStylesheetToHead(URL . '/extensions/addresslocationfield/assets/addresslocationfield.publish.css', 'screen', 78);
 				Administration::instance()->Page->addScriptToHead('http://maps.google.com/maps/api/js?sensor=false', 79);
 				Administration::instance()->Page->addScriptToHead(URL . '/extensions/addresslocationfield/assets/addresslocationfield.publish.js', 80);
